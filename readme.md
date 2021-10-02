@@ -1,3 +1,5 @@
-Padrão: Package By Feature
+Design Pattern: Package By Feature
 
-Estrutura as pastas do projeto por funcionalidade
+Description: This Design Pattern structures the folders according to the features of the project.
+
+Technologies: NodeJS, Typescript, Typeorm and Express.
