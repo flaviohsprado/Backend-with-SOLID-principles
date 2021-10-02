@@ -1,11 +1,16 @@
-import { User } from "src/entitites/User";
-import { UserRepository } from "src/interfaces/UserInterface";
+import { User } from "../../entitites/User";
+import { IMail } from "../../interfaces/MailInterface";
+import { IUserRepository } from "../../interfaces/UserInterface";
+import { UserDAO } from "../../DAO/UserDAO";
 import { CreateUserDTO } from "./CreateUserDTO";
 
 export class CreateUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: IUserRepository,
+    private mailProvider: IMail
+  ) {}
 
-  async execute(data: CreateUserDTO) {
+  async execute(data: CreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.userRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
@@ -14,6 +19,21 @@ export class CreateUserUseCase {
 
     const user = new User(data);
 
-    await this.userRepository.create(user);
+    const createdUser = await this.userRepository.create(user);
+
+    this.mailProvider.sendMail({
+      to: {
+        name: data.name,
+        email: data.email,
+      },
+      from: {
+        name: "Suporte Girabel's Enterprise",
+        email: "suporte.girabel@girabel.com.br",
+      },
+      subject: "Welcome to the application",
+      body: `<p>Você já pode fazer login em nossa plataforma</p>`,
+    });
+
+    return createdUser;
   }
 }
