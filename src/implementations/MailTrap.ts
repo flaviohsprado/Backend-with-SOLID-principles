@@ -10,8 +10,8 @@ export class MailTrap implements IMail {
       host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: "3a1171fa115423",
-        pass: "b9dcea60a663e7",
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
       },
     });
   }
