@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(authenticate);
+//app.use(authenticate);
 app.use(router);
 app.use((err: any, req: any, res: any, next: any) => handleError(err, res));
 app.get("/", (req, res) => {

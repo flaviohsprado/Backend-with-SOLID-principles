@@ -1,3 +1,8 @@
 import app from "./app";
+import http from "http";
 
-app.listen(3000);
+const server = http.createServer(app);
+
+server.listen(process.env.PORT || 3000, () => {
+  console.log("Rest API online");
+});

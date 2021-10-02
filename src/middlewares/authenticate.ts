@@ -16,7 +16,9 @@ const authenticate = asyncHandler(async (req: ProtectedRequest, res, next) => {
   const tokenAdmin: string = process.env.TOKEN_ADMIN! || "";
 
   if (req.url.includes("public")) return next();
+
   const [, token] = req.headers.authorization?.split(" ") || ["", ""];
+
   const response: any | false = await Token.verify(
     process.env.ENVIRONMENT === "DEV" ? tokenAdmin : token
   );

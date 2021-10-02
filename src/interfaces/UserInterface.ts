@@ -1,17 +1,17 @@
-import { CreateUserDTO } from "src/useCases/CreateUser/CreateUserDTO";
-import { UpdateUserDTO } from "src/useCases/UpdateUser/UpdateUserDTO";
+import { CreateUserDTO } from "../useCases/CreateUser/CreateUserDTO";
+import { UpdateUserDTO } from "../useCases/UpdateUser/UpdateUserDTO";
 
-export interface User {
+export interface IUser {
   name: string;
   email: string;
   password: string;
 }
 
-export interface UserRepository {
-  findByEmail(email: string): Promise<User>;
-  find(): Promise<User[]>;
-  findById(id: number): Promise<User>;
-  create(user: CreateUserDTO): Promise<User>;
-  update(user: UpdateUserDTO): Promise<User>;
-  destroy(id: number): Promise<void>;
+export interface IUserRepository {
+  findByEmail(email: string): Promise<IUser>;
+  find(): Promise<IUser[]>;
+  findById(id: string): Promise<IUser>;
+  create(user: CreateUserDTO): Promise<IUser>;
+  update(user: UpdateUserDTO): Promise<IUser>;
+  destroy(id: string): Promise<void>;
 }
